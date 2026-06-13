@@ -362,19 +362,25 @@ fn clean_removes_the_index() {
 }
 
 #[test]
-fn v3_index_and_clean_do_not_touch_v2_index() {
+fn index_and_clean_do_not_touch_unrelated_hidden_data() {
     let temp = fixture();
-    fs::create_dir(temp.path().join(".deepgrep-v2")).unwrap();
-    let v2_index = temp.path().join(".deepgrep-v2/index.dg");
-    fs::write(&v2_index, "v2 stays separate").unwrap();
+    fs::create_dir(temp.path().join(".foreign-index")).unwrap();
+    let foreign_index = temp.path().join(".foreign-index/index.dg");
+    fs::write(&foreign_index, "unrelated data stays separate").unwrap();
 
     assert!(dg(&["index", "."], temp.path()).status.success());
     assert!(temp.path().join(".deepgrep-v3/index.dg").is_file());
-    assert_eq!(fs::read_to_string(&v2_index).unwrap(), "v2 stays separate");
+    assert_eq!(
+        fs::read_to_string(&foreign_index).unwrap(),
+        "unrelated data stays separate"
+    );
 
     assert!(dg(&["clean", "."], temp.path()).status.success());
     assert!(!temp.path().join(".deepgrep-v3").exists());
-    assert_eq!(fs::read_to_string(&v2_index).unwrap(), "v2 stays separate");
+    assert_eq!(
+        fs::read_to_string(&foreign_index).unwrap(),
+        "unrelated data stays separate"
+    );
 }
 
 #[test]

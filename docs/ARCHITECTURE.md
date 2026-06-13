@@ -6,8 +6,8 @@ Deepgrep v3 improves repeated code-search latency while preserving a
 correctness-first fallback path. It combines a custom persistent index and query
 planner with the proven search engine crates used by ripgrep.
 
-The stable v2.1 project remains separate. V3 uses its own `.deepgrep-v3`
-directory, index magic and format version.
+Deepgrep uses a dedicated `.deepgrep-v3` directory, index magic and format
+version so its persistent data has an explicit, versioned ownership boundary.
 
 ## Original Deepgrep Components
 
@@ -108,7 +108,7 @@ intentionally excludes hidden and ignored paths. This avoids false negatives.
 - Indexed and raw output must agree for the same Deepgrep options.
 - Large text files are not skipped because of size.
 - Binary files are never silently removed from indexed candidate selection.
-- V3 never reads, cleans or updates the v2 index directory.
+- Deepgrep never reads, cleans or updates unrelated hidden data directories.
 - Exit codes are `0` for matches, `1` for no matches and `2` for errors.
 
 ## Performance Contract

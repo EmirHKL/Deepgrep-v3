@@ -45,7 +45,7 @@ Index build: 1.10 seconds and 46.0 MiB.
 - Filter tests compare indexed and raw modes.
 - Regression tests cover files larger than 32 MiB and binary files.
 - Watcher tests cover modification, addition, rename, deletion and ignore rules.
-- A separation test proves `dg clean` does not touch `.deepgrep-v2`.
+- An isolation test proves `dg clean` does not touch unrelated hidden data.
 
 ## Honest Limitations
 

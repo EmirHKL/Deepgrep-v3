@@ -1,5 +1,4 @@
 target/
 .deepgrep/
-.deepgrep-v2/
 .deepgrep-v3/
 benchmarks/results/
