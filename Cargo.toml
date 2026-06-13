@@ -1,0 +1,40 @@
+[package]
+name = "deepgrep"
+version = "3.0.0"
+edition = "2021"
+description = "Explainable indexed code search with incremental updates and regex acceleration"
+license = "MIT"
+repository = "https://github.com/EmirHKL/Deepgrep-v3"
+readme = "README.md"
+keywords = ["grep", "search", "index", "regex", "cli"]
+categories = ["command-line-utilities", "development-tools"]
+
+[[bin]]
+name = "dg"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive", "color"] }
+grep-matcher = "0.1"
+grep-regex = "0.1"
+grep-searcher = "0.1"
+ignore = "0.4"
+memchr = "2"
+memmap2 = "0.9"
+notify = "6"
+rayon = "1"
+regex-syntax = "0.8"
+serde_json = "1"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Storage_FileSystem"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = true
